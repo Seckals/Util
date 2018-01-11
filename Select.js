@@ -1,6 +1,6 @@
 /*
 *   name:Select plug
-*   模拟下拉列表
+*   description:模拟下拉列表
 *   用到dom属性有：scrollHeight(dom全文高度),clientHeight(dom可见区域高度)
 *   滑动按钮初始高度计算公式：（列表可视高度 * 滑动盒子高度）/ 列表内容全文高度
 *   列表和滑动条对应计算公式： 列表卷入高度 / 列表可视高度 = 滑动盒子top值 / 列表内容全文高度

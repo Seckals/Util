@@ -75,12 +75,9 @@
                 document.onmouseup = function(){
                     this.onmousemove=null;
                     this.onmouseup=null;
-                    document.getElementsByTagName('body')[0].onselectstart=function(){
-                        return true;
-                    };
                 }
-                document.getElementsByTagName('body')[0].onselectstart=function(){
-                          return false;
+                document.body.onselectstart=function(){
+                    return false;
                 }
             }
         }

@@ -1,0 +1,26 @@
+#pagination-wrapper{
+    width:100%;
+    line-height:25px;
+    text-align: center;
+}
+#pagination-wrapper>.pagination-ul{
+    list-style: none;
+    font-size: 0;
+    display: inline-block;
+    vertical-align: top;
+    margin: 0 10px;
+}
+#pagination-wrapper>.pagination-ul>li,#pagination-wrapper>.pagination-pre,#pagination-wrapper>.pagination-next{
+    display: inline-block !important;
+    vertical-align: middle !important;
+    padding: 3px 10px !important;
+    font-size: 15px !important;
+    cursor: pointer !important;
+    user-select: none;
+}
+#pagination-wrapper>.pagination-ul>.pagination-active{
+    background: #ccc;
+}
+#pagination-wrapper>.pagination-ul>li:hover{
+    color: yellow !important;
+}

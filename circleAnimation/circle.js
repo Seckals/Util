@@ -38,8 +38,8 @@
           return callback()
       }
       getCount(coordinate){
-          var x = coordinate.x;
-          var y = coordinate.y;
+          let x = coordinate.x;
+          let y = coordinate.y;
           if(x === 0 && y > 0){
               return 0
           }else if(x > 0 && y > 0){

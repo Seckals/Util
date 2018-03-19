@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style media="screen">
+        #box{
+            width: 300px;
+            height: 300px;
+            border:10px solid #000;
+            border-radius: 50%;
+            margin:100px;
+            box-sizing: border-box;
+            position: relative;
+        }
+        .item{
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            position: absolute;
+        }
+        .red{
+            background: red;
+            top:-25px;
+            left:125px;
+        }
+        .pink{
+            background: pink;
+            top:125px;
+            left:260px;
+        }
+        .green{
+            background: green;
+            top:260px;
+            left:125px;
+        }
+        .blue{
+            background: blue;
+            top:125px;
+            left:-25px;
+        }
+        .yellow{
+            background: yellow;
+            top:20px;
+            left:220px;
+        }
+        .origin{
+            background: #f2b114;
+            top:220px;
+            left:220px;
+        }
+        .black{
+            background: black;
+            top:225px;
+            left:20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="box">
+        <div class="item red"></div>
+        <div class="item green"></div>
+        <div class="item pink"></div>
+        <div class="item blue"></div>
+        <div class="item yellow"></div>
+        <div class="item origin"></div>
+        <div class="item black"></div>
+    </div>
+    <script src="cir.js" charset="utf-8"></script>
+    <script type="text/javascript">
+        var red  = document.getElementsByClassName("red")[0];
+        var green  = document.getElementsByClassName("green")[0];
+        var pink  = document.getElementsByClassName("pink")[0];
+        var blue  = document.getElementsByClassName("blue")[0];
+        var yellow  = document.getElementsByClassName("yellow")[0];
+        var origin  = document.getElementsByClassName("origin")[0];
+        var black  = document.getElementsByClassName("black")[0];
+
+
+        var circle = new CricleAmimation(150,150,145,1);
+        circle.initial(red,{x:0,y:145},30).then(function(){
+            return circle.initial(green,{x:145,y:0},30)
+        }).then(function(){
+            return circle.initial(pink,{x:0,y:-145},30)
+        }).then(function(){
+            return circle.initial(blue,{x:-145,y:0},30)
+        }).then(function(){
+            return circle.initial(yellow,{x:109,y:109},30)
+        }).then(function(){
+            return circle.initial(origin,{x:109,y:-109},30)
+        }).then(function(){
+            return circle.initial(black,{x:-109,y:-109},30)
+        })
+    </script>
+</body>
+</html>

@@ -64,6 +64,7 @@ router.get('/boss/city', function(req, res, next) { // 浏览器端发来get请�
 // 获取区
 router.get('/boss/area', function(req, res, next) { // 浏览器端发来get请求
     let path = req.query.path
+    let lab = req.query.lab || 'countytr'
     let Res = res
     http.get(basePath+path, function(res) {
         var chunks = [];
@@ -78,7 +79,32 @@ router.get('/boss/area', function(req, res, next) { // 浏览器端发来get请�
             var data = Buffer.concat(chunks,size);  
             var change_data = iconv.decode(data,'gb2312'); 
             var html = change_data.toString();
-            let list = dealCity(html,'countytr')|| []
+            let list = dealCity(html,lab)|| []
+            Res.json({list});
+        });
+    }).on('error', function() {
+        console.log('获取数据出错！');
+    })
+})
+
+// 获取镇
+router.get('/boss/town', function(req, res, next) { // 浏览器端发来get请求
+    let path = req.query.path
+    let Res = res
+    http.get(basePath+path, function(res) {
+        var chunks = [];
+        var size = 0;
+        // 获取页面数据
+        res.on('data', function(chunk) {
+            chunks.push(chunk)
+            size += chunk.length
+        });
+        // 数据获取结束
+        res.on('end', function() {
+            var data = Buffer.concat(chunks,size);  
+            var change_data = iconv.decode(data,'gb2312'); 
+            var html = change_data.toString();
+            let list = dealCity(html,'towntr')|| []
             Res.json({list});
         });
     }).on('error', function() {

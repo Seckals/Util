@@ -21,6 +21,109 @@
    </head>
    <body>
     <p id="info"></p>
-    
+    <button id="btn" onclick="getInfo">dianji</button>
+    <button id="btn1" onclick="getInfo">生成</button>
    </body>
+   <script src="./axios.min.js"></script>
+   
+   <script>
+     let resulte = {}
+     window.onload = function(){
+      getProvince().then(res=>{
+        let provice = res.data.list || []
+        provice.map(item=>{
+          if(item.text){
+            let cities = {}
+            getCity(item.path).then(resp=>{
+              let city = resp.data.list || []
+              city.map(ite=>{
+                if(ite.text){
+                  let str = ite.text == '市辖区'?item.text:ite.text
+                  let send = getArea(ite.path)
+                  if(ite.path == '44/4419.html' || ite.path == '46/4604.html'|| ite.path == '44/4420.html'){
+                    send = getArea(ite.path,'towntr')
+                  }
+                  send.then(respon=>{
+                    let area = respon.data.list || []
+                    let areas = []
+                    area.map(it=>{
+                      if(it.text){
+                        if(it.text == '市辖区'){
+                          let lab = ite.path.split("/")[0]
+                          getTown(lab+'/'+it.path).then(nnn=>{
+                            let town = nnn.data.list || []
+                            
+                            let townlist = []
+                            if(town.text){
+                              townlist.push(town.text)
+                            }
+                            areas = townlist
+                          })
+                        }else{
+                          areas.push(it.text)
+                        }
+                      }
+                    })
+
+                    cities[str] = areas
+                  })
+                }
+              })
+            })
+            resulte[item.text] = cities
+            
+          }
+        })
+        document.getElementById("info").innerHTML = JSON.stringify(resulte)
+      })
+     }
+     document.getElementById("btn").onclick = ()=>{
+       console.log(resulte)
+       getArea("44/4419.html",'towntr').then(res=>{
+         let list = []
+         res.data.list.map(item=>{
+           if(item.text){
+             list.push(item.text)
+           }
+         })
+         console.log(JSON.stringify(list))
+       })
+     }
+     document.getElementById("btn1").onclick = ()=>{
+      tofile(JSON.stringify(resulte),"provice.json")
+     }
+
+     var getProvince = ()=>{
+      return axios.get('/boss/provice')
+     }
+     var getCity = (path)=>{
+      return axios.get('/boss/city?path='+path)
+     }
+     var getArea = (path,lab)=>{
+       let str = '/boss/area?path='+path
+       if(lab){
+         str += "&lab="+lab
+       }
+      return axios.get(str)
+     }
+
+     var getTown = (path)=>{
+      return axios.get('/boss/town?path='+path)
+     }
+
+     var tofile = function (content,filename){
+        var eleLink = document.createElement('a');
+        eleLink.download = filename;
+        eleLink.style.display = 'none';
+        // 字符内容转变成blob地址
+        var blob = new Blob([content]);
+        eleLink.href = URL.createObjectURL(blob);
+        // 触发点击
+        document.body.appendChild(eleLink);
+        eleLink.click();
+        // 然后移除
+        document.body.removeChild(eleLink);
+      }
+
+   </script>
  </html>

@@ -13,7 +13,7 @@
     "axios": "^0.18.0",
     "cheerio": "^1.0.0-rc.2",
     "ejs": "^2.6.1",
-    "express": "^4.16.4",
+    "express": "^4.17.3",
     "iconv-lite": "^0.4.24",
     "qs": "^6.6.0",
     "superagent": "^4.0.0-beta.5"
